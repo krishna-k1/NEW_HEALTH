@@ -1,0 +1,567 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Diagnose your disease</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <link rel="stylesheet" href="styles/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Nerko+One&family=Roboto+Mono:ital,wght@0,100..700;1,100..700&family=Rubik:ital,wght@0,300..900;1,300..900&display=swap" rel="stylesheet">
+    <style>
+        body {
+            background: radial-gradient(circle, #d0f7d4, #a8e6e0);
+            margin: 0;
+            padding-top: 15vh; /* Adds space for the fixed navbar */
+            overflow-x: hidden; /* Prevent horizontal scroll */
+        }
+
+        .navbar {
+  --bs-navbar-padding-y: 0px;
+  width: 100%;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 1000;
+}
+
+.nav-item {
+  padding-left: 20px;
+}
+
+/* Underline effect on hover */
+.nav-link {
+  position: relative;
+  color: #333; /* Optional: Adjust text color */
+  text-decoration: none; /* Remove default underline */
+}
+
+.nav-link::after {
+  content: "";
+  position: absolute;
+  width: 0;
+  height: 2px;
+  bottom: -2px;
+  left: 0;
+  background-color: #3f8b42; /* Change this color as desired */
+  transition: width 0.3s ease-in-out;
+}
+
+.nav-link:hover::after {
+  width: 100%; /* Expands underline on hover */
+}
+    
+        .header {
+            text-align: center;
+            margin-top: 20px;
+        }
+    
+        .header h1 {
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+    
+        .header h2 {
+            font-weight: 500;
+            font-size: 1rem;
+            margin-bottom: 20px;
+        }
+    
+        .navbar {
+            --bs-navbar-padding-y: 0px;
+            width: 100%;
+            position: fixed;
+            top: 0;
+            left: 0;
+            z-index: 1000;
+        }
+    
+        .container-fluid {
+            background: linear-gradient(to right, #d3f6f9, #a1e4a6);
+            background-size: cover;
+            height: 15vh;
+        }
+    
+        .sidebar {
+            height: 100%;
+            width: 30vw; /* Sidebar width */
+            position: fixed;
+            top: 0;
+            left: 0;
+            background: radial-gradient(circle, #d0f7d4, #a8e6e0); /* Match the body background */
+            overflow-x: hidden;
+            transition: transform 0.3s ease;
+            padding-top: 60px;
+            box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+            z-index: 1000;
+            transform: translateX(-100%); /* Start hidden */
+        }
+    
+        .sidebar.open {
+            transform: translateX(0); /* Show sidebar */
+        }
+    
+        .sidebar-content {
+            padding: 20px;
+        }
+    
+        .sidebar .closebtn {
+            position: absolute;
+            top: 10px;
+            right: 25px;
+            font-size: 36px;
+            cursor: pointer;
+        }
+    
+        .sidebar-open .container-wrapper {
+            margin-left: 30vw; /* Shift content when sidebar is open */
+        }
+    
+        @media (max-width: 768px) {
+            .container-wrapper, .about-container, .footer-container {
+                width: 100%; /* Full width on mobile */
+                padding: 10px;
+            }
+    
+            .sidebar-open .container-wrapper {
+                margin-left: 0; /* Adjust for mobile view */
+            }
+    
+            .sidebar {
+                width: 100vw; /* Full width on mobile */
+            }
+        }
+        .maincontent{
+            display:flex;
+            flex-direction: column;
+            gap:10px;
+        }
+        .diagnosebtn{
+            display:flex;
+            justify-content: center;
+        }
+     
+        .selected-symptoms {
+            margin: 10px 0;
+            padding: 10px;
+            border: 1px solid #ccc;
+            width: 100%;
+        }
+
+        .dropdown {
+    width: 100%;
+    padding: 5px;
+    border-radius: 5px;
+    background-color: #f9f9f9;
+    border: 1px solid #ccc;
+    
+    
+}
+
+.profile-photo-container {
+    text-align: center;
+    width: 100px;
+    height: 100px;
+    border-radius: 100px;
+}
+
+.profile-photo {
+    width: 100px;
+    height: 100px;
+    border-radius: 100px;
+    border: 2px solid #ccc; /* Circular border around the photo */
+    /* object-fit: cover; Ensures the photo fits within the circle */
+    cursor: pointer;
+    background-color: #f0f0f0; /* Optional: Adds a background color if no photo is set */
+}
+
+#fileInput {
+    display: none;
+}
+label {
+            font-weight: bold; /* Makes the label text bold */
+            font-size: 18px;   /* Increases the font size */
+        }
+
+
+        #diagnosisForm{
+            display:flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        /* /* option {
+            font-style: italic;} /* Makes the option text italic */ 
+
+            .dropdown {
+            width: 60vw; /* Default to 50% width */
+            margin-bottom: 10px; /* Adds space below each dropdown */
+       border:2px solid rgb(201, 219, 197);
+        }
+       
+
+        select option:checked {
+    background-color:rgb(134, 173, 134); /* Green background */
+    color: white; /* White text */
+}
+
+        /* Make the dropdowns full width when the screen width is less than 500px */
+        @media (max-width: 768px) {
+            .dropdown {
+                width: 90vw; /* Full width for smaller screens */
+            }
+        }
+
+        .selected-symptoms{
+            width:90vw;
+            border-radius: 10px;
+            border:2px solid rgb(201, 219, 197);
+        }
+
+.roboto-mono-uniquifier {
+  font-family: "Roboto Mono", monospace;
+  font-optical-sizing: auto;
+  font-weight: weight;
+  font-style: normal;
+}
+
+
+    </style>
+    
+</head>
+
+<body>
+    <!-- Header Section -->
+    <div class="header">
+        <h1>DISEASE DIAGNOSIS SUPPORT SYSTEM</h1>
+        <h2>powered by AI</h2>
+    </div>
+
+    <nav class="navbar navbar-expand-lg bg-body-tertiary">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="javascript:void(0)" onclick="scrollToTop()"><img src="/assets/images/logo copy.png"  alt="lungs-icon" width="30px" height="30px"> Health-Ease</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="/start">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#" id="profile-link">Profile</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/views/dignose">DiseaseDiagnosis</a>
+                    </li>
+                </ul>
+                <form class="d-flex" role="search">
+                    <button class="btn btn-outline-success" type="submit"><a class="nav-link" href="/logout">LogOut</a></button>
+                </form>
+            </div>
+        </div>
+    </nav>
+
+
+        
+       
+    <div id="result" style=" padding: 10px; margin-top: 10px;"></div>
+        
+    </div>
+
+    <div id="mySidebar" class="sidebar">
+        <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+        <div class="sidebar-content">
+            <h2>Profile</h2>
+            
+            <!-- Circular Profile Photo -->
+            <div class="profile-photo-container" onclick="document.getElementById('fileInput').click();">
+                <img id="profilePhoto" src="/assets/images/profilephotoplaceholder.jpeg" alt="Photo" class="profile-photo" />
+                <input type="file" id="fileInput" style="display:none;" accept="image/*" onchange="previewImage(event)" />
+            </div>
+    
+           
+      <!-- Update Photo Button -->
+      <div style="padding:10px">
+        <button type="button" class="btn btn-success" onclick="updateProfilePhoto()">Update Photo</button>
+    </div>
+            <form action="/updateProfile" method="POST">
+                <div class="form-group">
+                    <label for="name">Name:</label>
+                    <input type="text" class="form-control" id="name" name="name" placeholder="Enter your name">
+                </div>
+                <div class="form-group">
+                    <label for="sex">Sex:</label>
+                    <select class="form-control" id="sex" name="sex">
+                        <option value="">Select Gender</option>
+                        <option value="Male">Male</option>
+                        <option value="Female">Female</option>
+                        <option value="Others">Others</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="dob">Date of Birth (DOB):</label>
+                    <input type="text" class="form-control" id="dob" name="dob" placeholder="Enter your Date of Birth (dd/mm/yyyy)">
+                </div>
+                <div class="form-group">
+                    <label for="location">Enter Your State:</label>
+                    <select id="stateDropdown" class="form-select" name="location">
+                        <option value="">Select State</option>
+                        <option value="Andaman And Nicobar Islands">Andaman And Nicobar Islands</option>
+                        <option value="Andhra Pradesh">Andhra Pradesh</option>
+                        <option value="Arunachal Pradesh">Arunachal Pradesh</option>
+                        <option value="Assam">Assam</option>
+                        <option value="Bihar">Bihar</option>
+                        <option value="Chhattisgarh">Chhattisgarh</option>
+                        <option value="Goa">Goa</option>
+                        <option value="Gujarat">Gujarat</option>
+                        <option value="Haryana">Haryana</option>
+                        <option value="Himachal Pradesh">Himachal Pradesh</option>
+                        <option value="Jharkhand">Jharkhand</option>
+                        <option value="Karnataka">Karnataka</option>
+                        <option value="Kerala">Kerala</option>
+                        <option value="Madhya Pradesh">Madhya Pradesh</option>
+                        <option value="Maharashtra">Maharashtra</option>
+                        <option value="Manipur">Manipur</option>
+                        <option value="Meghalaya">Meghalaya</option>
+                        <option value="Mizoram">Mizoram</option>
+                        <option value="Nagaland">Nagaland</option>
+                        <option value="Odisha">Odisha</option>
+                        <option value="Puducherry">Puducherry</option>
+                        <option value="Punjab">Punjab</option>
+                        <option value="Rajasthan">Rajasthan</option>
+                        <option value="Sikkim">Sikkim</option>
+                        <option value="Tamil Nadu">Tamil Nadu</option>
+                        <option value="Telangana">Telangana</option>
+                        <option value="Tripura">Tripura</option>
+                        <option value="Uttar Pradesh">Uttar Pradesh</option>
+                        <option value="Uttarakhand">Uttarakhand</option>
+                        <option value="West Bengal">West Bengal</option>
+                        
+                    </select>
+                </div>
+                <div style="padding:10px">
+                    <button type="submit" class="btn btn-success">Save Profile</button>
+                </div>
+            </form>
+    
+          
+        </div>
+    </div>
+
+   
+<div class="maincontent">
+    <form id="diagnosisForm" action="/diagnose" method="POST">
+        <!-- Skin-related Symptoms -->
+        <label for="symptomsType1">Skin-related Symptoms</label>
+        <select id="symptomsType1" class="dropdown" multiple onchange="updateSelectedSymptoms()">
+            <option value="itching">itching</option>
+            <option value="skin_rash">skin_rash</option>
+            <option value="nodal_skin_eruptions">nodal_skin_eruptions</option>
+            <option value="dischromic_patches">dischromic_patches</option>
+            <option value="skin_peeling">skin_peeling</option>
+            <option value="blackheads">blackheads</option>
+            <option value="scurring">scurring</option>
+            <option value="silver_like_dusting">silver_like_dusting</option>
+            <option value="small_dents_in_nails">small_dents_in_nails</option>
+            <option value="inflammatory_nails">inflammatory_nails</option>
+            <option value="blister">blister</option>
+            <option value="red_sore_around_nose">red_sore_around_nose</option>
+            <option value="yellow_crust_ooze">yellow_crust_ooze</option>
+        </select>
+
+        <!-- Eye-related Symptoms -->
+        <label for="symptomsType2">Eye-Related Symptoms</label>
+        <select id="symptomsType2" class="dropdown" multiple onchange="updateSelectedSymptoms()">
+            <option value="blurred_and_distorted_vision">blurred_and_distorted_vision</option>
+            <option value="redness_of_eyes">redness_of_eyes</option>
+            <option value="watering_from_eyes">watering_from_eyes</option>
+            <option value="yellowing_of_eyes">yellowing_of_eyes</option>
+        </select>
+
+        <!-- Respiratory-related Symptoms -->
+        <label for="symptomsType3">Respiratory-Related Symptoms</label>
+        <select id="symptomsType3" class="dropdown" multiple onchange="updateSelectedSymptoms()">
+            <option value="continuous_sneezing">continuous_sneezing</option>
+            <option value="breathlessness">breathlessness</option>
+            <option value="cough">cough</option>
+            <option value="mucus">mucus</option>
+            <option value="phlegm">phlegm</option>
+            <option value="runny_nose">runny_nose</option>
+        </select>
+
+        <!-- Digestive-related Symptoms -->
+        <label for="symptomsType4">Digestive-Related Symptoms</label>
+        <select id="symptomsType4" class="dropdown" multiple onchange="updateSelectedSymptoms()">
+            <option value="stomach_pain">stomach_pain</option>
+            <option value="acidity">acidity</option>
+            <option value="ulcers_on_tongue">ulcers_on_tongue</option>
+            <option value="vomiting">vomiting</option>
+            <option value="indigestion">indigestion</option>
+            <option value="loss_of_appetite">loss_of_appetite</option>
+            <option value="abdominal_pain">abdominal_pain</option>
+            <option value="diarrhea">diarrhea</option>
+            <option value="constipation">constipation</option>
+            <option value="belly_pain">belly_pain</option>
+            <option value="flatulence">flatulence</option>
+            <option value="excessive_hunger">excessive_hunger</option>
+            <option value="swelling_of_stomach">swelling_of_stomach</option>
+        </select>
+
+        <!-- Joint and Muscle-related Symptoms -->
+        <label for="symptomsType5">Joint and Muscle-Related Symptoms</label>
+        <select id="symptomsType5" class="dropdown" multiple onchange="updateSelectedSymptoms()">
+            <option value="joint_pain">joint_pain</option>
+            <option value="muscle_wasting">muscle_wasting</option>
+            <option value="muscle_pain">muscle_pain</option>
+            <option value="stiff_neck">stiff_neck</option>
+            <option value="swelling_joints">swelling_joints</option>
+            <option value="back_pain">back_pain</option>
+        </select>
+
+        <!-- Neurological-related Symptoms -->
+        <label for="symptomsType6">Neurological-Related Symptoms</label>
+        <select id="symptomsType6" class="dropdown" multiple onchange="updateSelectedSymptoms()">
+            <option value="headache">headache</option>
+            <option value="dizziness">dizziness</option>
+            <option value="lack_of_concentration">lack_of_concentration</option>
+            <option value="anxiety">anxiety</option>
+            <option value="irritability">irritability</option>
+            <option value="depression">depression</option>
+            <option value="mood_swings">mood_swings</option>
+            <option value="altered_sensorium">altered_sensorium</option>
+            <option value="slurred_speech">slurred_speech</option>
+            <option value="loss_of_balance">loss_of_balance</option>
+        </select>
+
+        <!-- General Symptoms -->
+        <label for="symptomsType7">General Symptoms</label>
+        <select id="symptomsType7" class="dropdown" multiple onchange="updateSelectedSymptoms()">
+            <option value="fatigue">fatigue</option>
+            <option value="weight_loss">weight_loss</option>
+            <option value="weight_gain">weight_gain</option>
+            <option value="lethargy">lethargy</option>
+            <option value="restlessness">restlessness</option>
+            <option value="chills">chills</option>
+            <option value="malaise">malaise</option>
+            <option value="nausea">nausea</option>
+            <option value="sweating">sweating</option>
+            <option value="cold_hands_and_feets">cold_hands_and_feets</option>
+            <option value="weakness_in_limbs">weakness_in_limbs</option>
+            <option value="throat_irritation">throat_irritation</option>
+            <option value="bruising">bruising</option>
+            <option value="high_fever">high_fever</option>
+        </select>
+
+        <!-- Circulatory-related Symptoms -->
+        <label for="symptomsType8" >Circulatory System-Related Symptoms</label>
+        <select id="symptomsType8" class="dropdown" multiple onchange="updateSelectedSymptoms()">
+            <option value="fast_heart_rate">fast_heart_rate</option>
+            <option value="palpitations">palpitations</option>
+        </select>
+
+        <!-- Urinary-related Symptoms -->
+        <label for="symptomsType9">Urinary-Related Symptoms</label>
+        <select id="symptomsType9" class="dropdown" multiple onchange="updateSelectedSymptoms()">
+            <option value="burning_micturition">burning_micturition</option>
+            <option value="continuous_feel_of_urine">continuous_feel_of_urine</option>
+            <option value="bladder_discomfort">bladder_discomfort</option>
+        </select>
+
+      
+
+ <!-- Text field -->
+ <h1>Diagnose Symptoms</h1>
+ <textarea id="selectedSymptoms" class="selected-symptoms" rows="3" readonly placeholder="Selected symptoms will appear here"></textarea>
+
+        <div class="diagnosebtn">
+            <button type="button" id="diagnosebtn" class="diagnosebtn btn btn-success" onclick="submitDiagnosis()">Diagnose</button>
+        </div>
+        </form>
+        <div id="result" style=" padding: 10px; margin-top: 10px;"></div>
+    </div>
+
+    <form action="/submit-symptoms" method="POST">
+        <label for="symptoms">Enter Symptoms (comma-separated):</label>
+        <input type="text" name="symptoms" id="symptoms" required>
+        <button type="submit">Diagnose</button>
+      </form>
+      
+
+    <!-- <div id="footer-section" class="footer-container text-center">
+        <div class="footer-links">
+            <a href="#">Help</a>
+            <a href="#">Contact Us</a>
+        </div>
+        <p>&copy; 2024 Health-Ease. All rights reserved.</p>
+    </div> -->
+    <script>
+  function updateSelectedSymptoms() {
+  // Get all dropdown elements by class name
+  const dropdowns = document.querySelectorAll('.dropdown');
+  let selectedSymptoms = [];
+
+  // Loop through each dropdown and collect selected options
+  dropdowns.forEach(dropdown => {
+    Array.from(dropdown.options).forEach(option => {
+      if (option.selected) {
+        selectedSymptoms.push(option.text);
+      }
+    });
+  });
+
+  // Display the selected symptoms as comma-separated values in the textarea
+  document.getElementById('selectedSymptoms').value = selectedSymptoms.join(', ');
+}
+
+
+        // Function to submit the diagnosis (example functionality)
+        function submitDiagnosis() {
+        const symptoms = document.getElementById('selectedSymptoms').value;
+        alert('Diagnosing based on symptoms: ' + symptoms);
+        // Add your form submission or AJAX request here
+        }
+    
+   
+     
+         document.getElementById("profile-link").addEventListener("click", function() {
+             document.getElementById("mySidebar").classList.toggle("open");
+             document.body.classList.toggle("sidebar-open");
+             document.body.style.overflowX = document.body.classList.contains("sidebar-open") ? "auto" : "hidden"; // Show horizontal scrollbar when sidebar is open
+         });
+     
+         function closeNav() {
+             document.getElementById("mySidebar").classList.remove("open");
+             document.body.classList.remove("sidebar-open");
+             document.body.style.overflowX = "hidden"; // Hide horizontal scrollbar when sidebar is closed
+         }
+     
+         function scrollToTop() {
+             window.scrollTo({ top: 0, behavior: 'smooth' });
+         }
+
+         function previewImage(event) {
+    var reader = new FileReader();
+    reader.onload = function() {
+        var output = document.getElementById('profilePhoto');
+        output.src = reader.result;
+    };
+    reader.readAsDataURL(event.target.files[0]);
+}
+
+// Function to update the photo (you can extend this to send the image to the server)
+function updateProfilePhoto() {
+    var fileInput = document.getElementById('fileInput');
+    if (fileInput.files.length > 0) {
+        // Here you would send the image to the server using AJAX or a form submission
+        alert("Profile photo updated!");
+    } else {
+        alert("Please select a photo first.");
+    }
+}
+     </script>
+     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+</body>
+
+</html>

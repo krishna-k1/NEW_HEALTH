@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Expanding Logo Animation</title>
+    <link rel="stylesheet" href="styles.css">
+
+    <style>
+        /* Basic Reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+body, #loader {
+    background: radial-gradient(circle, #d0f7d4, #a8e6e0);
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background: radial-gradient(circle, #d0f7d4, #a8e6e0);
+    overflow: hidden;
+}
+
+/* Loader Styles */
+#loader {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #ffffff;
+    z-index: 10;
+    animation: fadeOut 1s forwards 2.5s;
+}
+
+.logo-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    animation: scaleUp 2.5s ease-in-out forwards;
+}
+
+/* Logo and Text Styles */
+.logo {
+    width: 50px;
+    height: 50px;
+    animation: logoScale 2.5s ease-in-out forwards;
+}
+
+.site-name {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #3498db;
+    margin-top: 10px;
+    animation: textScale 5s ease-in-out forwards;
+}
+
+/* Keyframe Animations */
+@keyframes scaleUp {
+    from { transform: scale(1); }
+    to { transform: scale(3); }
+}
+/* 
+@keyframes logoScale {
+    from { transform: scale(1); }
+    to { transform: scale(2); }
+}
+
+@keyframes textScale {
+    from { transform: scale(1); }
+    to { transform: scale(2); }
+}
+
+@keyframes fadeOut {
+    to { opacity: 1; visibility: hidden; }
+} */
+
+/* Main Content Hidden Initially */
+.hidden {
+    opacity: 0;
+    transition: opacity 1s ease-in;
+}
+
+/* Show Content After Load */
+#content.show {
+    opacity: 1;
+}
+
+    </style>
+</head>
+<body>
+    <!-- Loading Screen with Expanding Logo -->
+    <div id="loader">
+        <div class="logo-container">
+            <img src="/assets/images/Logo.png" alt="Website Logo" class="logo">
+            <h1 class="site-name">Health-Ease</h1>
+        </div>
+    </div>
+
+   
+
+    <script >
+        // Wait for the page to load
+// window.addEventListener('load', () => {
+//     // After the animation ends, hide the loader and show the main content
+//     setTimeout(() => {
+//         document.getElementById('loader').style.display = 'home.ejs';
+//         document.getElementById('content').classList.add('show');
+//     }, 2500);  // Matches the animation duration
+// });
+// Wait for the page to load
+window.addEventListener('load', () => {
+    // After the animation ends, redirect to home.ejs
+    setTimeout(() => {
+        window.location.href = '/login';  // Adjust the path if needed based on your route setup
+    }, 2500);  // Matches the animation duration
+});
+
+
+    </script>
+</body>
+</html>
+

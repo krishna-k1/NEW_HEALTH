@@ -1,0 +1,444 @@
+<!-- Improve the heading of each page -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Help - Heart Disease Diagnosis</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <link rel="stylesheet" href="styles/bootstrap/dist/css/bootstrap.min.css" />
+   
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Nerko+One&family=Rubik:ital,wght@0,300..900;1,300..900&display=swap" rel="stylesheet">
+   
+   <style>
+        body {
+            background: radial-gradient(circle, #d0f7d4, #a8e6e0);
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+
+        h1, h2 {
+            text-align: center;
+            color: #073809;
+            margin-top: 20px;
+        }
+
+        .faq-item {
+            margin: 10px 0;
+        }
+
+        .answer {
+            display: none;
+            padding: 10px;
+            background-color: #f9f9f9;
+            border: 1px solid #ddd;
+        }
+
+        .question {
+            width: 100%;
+            background: linear-gradient(to right, #073809, #187c1c);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            padding: 15px 20px;
+            font-size: 18px;
+            font-weight: bold;
+            text-align: left;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .question:hover {
+          background: linear-gradient(to right, #187c1c, #073809);
+          box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+        }
+
+        .question:focus {
+            outline: none;
+        }
+
+        .answer {
+          display: none;
+        padding: 15px;
+        margin-top: 10px;
+        border-radius: 8px;
+        background-color: #f9f9f9;
+        border: 1px solid #ddd;
+        line-height: 1.6;
+        color: #333;
+        }
+
+        .section {
+            margin: 30px auto;
+            max-width: 800px;
+            background-color: white;
+            border-radius: 10px;
+            padding: 10px 20px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        .question:active {
+          transform: scale(0.98);
+        }
+
+        .contact-info, .symptoms-info {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .contact-info a {
+            color: #073809;
+            text-decoration: none;
+        }
+
+        .contact-info a:hover {
+            text-decoration: underline;
+        }
+
+        .faq-item {
+            margin-bottom: 15px;
+        }
+        ul {
+          padding-left: 20px;
+          list-style-type: square;
+        }
+
+        
+h1 {
+    font-family: 'Arial', sans-serif; /* Smooth, modern font */
+    font-size: 36px; /* Larger size for emphasis */
+    font-weight: 700; /* Bold to make it stand out */
+    text-align: center; /* Center-align the text */
+    color:black; /* A vibrant color for the text */
+    text-transform: uppercase; /* Uppercase for added boldness */
+    letter-spacing: 2px; /* Slight spacing between letters */
+    margin-top: 50px; /* Add space from the top */
+    margin-bottom: 20px; /* Space between heading and other elements */
+    text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2); /* Soft shadow for depth */
+}
+
+@media (max-width: 768px) {
+    h1 {
+        font-size: 30px; /* Slightly smaller on mobile screens */
+        margin-top: 30px; /* Adjust margin on small screens */
+    }
+}
+        
+h2 {
+    font-family: 'Arial', sans-serif; /* Smooth, modern font */
+    font-size: 36px; /* Larger size for emphasis */
+    font-weight: 700; /* Bold to make it stand out */
+    text-align: center; /* Center-align the text */
+    color:black; /* A vibrant color for the text */
+    text-transform: uppercase; /* Uppercase for added boldness */
+    letter-spacing: 2px; /* Slight spacing between letters */
+    margin-top: 50px; /* Add space from the top */
+    margin-bottom: 20px; /* Space between heading and other elements */
+    text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2); /* Soft shadow for depth */
+}
+
+@media (max-width: 768px) {
+    h2 {
+        font-size: 28px; /* Slightly smaller on mobile screens */
+        margin-top: 30px; /* Adjust margin on small screens */
+    }
+}
+
+.navbar-collapse {
+    transition: background 0.3s ease; /* Smooth transition for the entire background property */
+}
+
+.navbar-collapse.show {
+    background: radial-gradient(circle, rgba(208, 247, 212, 0.5), rgba(168, 230, 224, 0.7));
+}
+
+
+.navbar {
+  --bs-navbar-padding-y: 0px;
+  width: 100%;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 1000;
+
+
+}
+
+.profile-summary {
+    border-top: 1px solid #ccc;
+    padding-top: 10px;
+}
+
+.profile-summary h3 {
+    margin-bottom: 10px;
+}
+
+.profile-summary p {
+    font-size: 16px;
+    margin: 5px 0;
+}
+
+.profile-summary strong {
+    font-weight: bold;
+}
+
+
+/* Adjust navbar height on smaller screens */
+@media (max-width: 768px) {
+ .navbar{
+  height: 50px;}
+
+  .navbar-brand {
+    font-size: 1rem; /* Optionally reduce logo font size */
+  }
+
+  .nav-link {
+    padding: 5px 10px; /* Reduce padding of nav links */
+  }
+
+  .navbar-toggler {
+    padding: 3px 6px; /* Reduce padding of toggle button */
+  }
+}
+
+
+.nav-item {
+  padding-left: 20px;
+}
+
+/* Underline effect on hover */
+.nav-link {
+  position: relative;
+  color: #333; /* Optional: Adjust text color */
+  text-decoration: none; /* Remove default underline */
+}
+
+.nav-link::after {
+  content: "";
+  position: absolute;
+  width: 0;
+  height: 2px;
+  bottom: -2px;
+  left: 0;
+  background-color: #3f8b42; /* Change this color as desired */
+  transition: width 0.3s ease-in-out;
+}
+
+.nav-link:hover::after {
+  width: 100%; /* Expands underline on hover */
+}
+/* Adjust navbar height on smaller screens */
+@media (max-width: 768px) {
+ .navbar{
+  height: 50px;}
+
+  .navbar-brand {
+    font-size: 1rem; /* Optionally reduce logo font size */
+  }
+
+  .nav-link {
+    padding: 5px 10px; /* Reduce padding of nav links */
+  }
+
+  .navbar-toggler {
+    padding: 3px 6px; /* Reduce padding of toggle button */
+  }
+}
+.navbar .btn {
+    padding: 10px 15px;
+    font-size: 1rem;
+    width: auto;
+}
+
+
+
+.container-fluid {
+background: linear-gradient(to right, #d3f6f9, #a1e4a6);
+background-size: cover;
+height: 15vh;
+}
+
+.container-wrapper, .about-container, .footer-container {
+width: 80%; /* Consistent width for all containers */
+  max-width: 1200px; /* Optional: limit width for larger screens */
+margin: 20px auto; /* Center containers and add spacing */
+padding: 20px;
+  border-radius: 8px;
+box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+    </style>
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg bg-body-tertiary">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="javascript:void(0)" onclick="scrollToTop()">
+                <img src="/assets/images/logo copy.png" alt="logo" width="30px" height="30px"> Health-Ease
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation" id="navbar-toggle-btn">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="/start">Home</a>
+                    </li>
+                 
+                    <!-- <li class="nav-item">
+                        <a class="nav-link active" href="/views/heartDiagnose">DiseaseDiagnosis</a>
+                    </li> -->
+<!--     
+                        <li class="nav-item">
+                      <a class="nav-link active" href="/views/appointment">Schedule appointment</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link active" href="/views/heartDiagnose">Heart Diagnose</a>
+                </li>
+                    -->
+                
+                </ul>
+                <button class="btn btn-outline-success" type="submit">
+                    <a class="nav-link" href="/logout">LogOut</a>
+                </button>
+            </div>
+        </div>
+    </nav>
+<h1>HELP CENTER</h1>
+<h2>Frequently Asked Questions (FAQs)</h2>
+
+<!-- Symptoms Section -->
+<div class="section">
+    <button class="question">Understanding Heart Disease Symptoms</button>
+    <div class="answer">
+        <p>Our heart disease diagnosis system uses a variety of symptoms to help predict the likelihood of heart disease. Some of the most common symptoms include:</p>
+        <ul>
+            <li><strong>Chest Pain:</strong> A common symptom, often associated with a heart attack.</li>
+            <li><strong>Shortness of Breath:</strong> Difficulty breathing or feeling winded can indicate heart issues.</li>
+            <li><strong>Fatigue:</strong> Unusual tiredness, especially after minimal physical activity, could be a sign of heart disease.</li>
+            <li><strong>Dizziness or Lightheadedness:</strong> Can occur when the heart is not pumping blood effectively.</li>
+            <li><strong>Swelling in the Legs or Feet:</strong> This can indicate that the heart is struggling to pump blood properly.</li>
+        </ul>
+        <p>If you experience any of these symptoms, please contact a healthcare professional immediately.</p>
+    </div>
+</div>
+
+<!-- Tips for Heart Health Section -->
+<div class="section">
+    <button class="question">Tips for Maintaining a Healthy Heart</button>
+    <div class="answer">
+        <ul>
+            <li>Eat a balanced diet rich in fruits, vegetables, and whole grains.</li>
+            <li>Engage in regular physical activity, such as walking, swimming, or cycling.</li>
+            <li>Maintain a healthy weight and avoid smoking.</li>
+            <li>Limit alcohol consumption and manage stress levels.</li>
+            <li>Get regular checkups with your doctor, especially if you have a family history of heart disease.</li>
+        </ul>
+    </div>
+</div>
+
+<!-- Contact Information Section -->
+<div class="section">
+    <button class="question">Contact Us</button>
+    <div class="answer">
+        <p>If you need assistance or have questions, you can contact us in the following ways:</p>
+        <a href="mailto:support@healthcare.com">Email: support@healthcare.com</a><br>
+        <a href="tel:+1234567890">Phone: +123 456 7890</a>
+        <p>We are here to assist you with any questions or concerns you may have!</p>
+    </div>
+</div>
+
+<!-- Diagnosis Process Section -->
+<div class="section">
+    <button class="question">How the Diagnosis Process Works</button>
+    <div class="answer">
+        <p>Our system uses the symptoms you provide to predict the likelihood of heart disease. The process is simple:</p>
+        <ul>
+            <li>Step 1: You will select your symptoms from a list.</li>
+            <li>Step 2: Our system analyzes the data based on a trained model and provides a prediction.</li>
+            <li>Step 3: The system will display the likelihood of heart disease and provide recommendations.</li>
+        </ul>
+        <p style="color: green;">We encourage you to visit a healthcare professional for confirmation and further examination if necessary.</p>
+    </div>
+</div>
+
+<!-- Heart Disease Diagnosis Symptoms Section -->
+<div class="section">
+    <button class="question">Heart Disease Diagnosis Symptoms</button>
+    <div class="answer">
+        <h3 style="color: green;">1. Resting Blood Pressure (in mm Hg)</h3>
+        <p>This refers to the pressure in your arteries when your heart is resting between beats. A higher resting blood pressure may indicate potential heart disease.</p>
+
+        <h3 style="color: green;">2. Serum Cholesterol</h3>
+        <p>Cholesterol is a fatty substance in the blood that can build up in the arteries, leading to blockages. High serum cholesterol levels can increase the risk of heart disease.</p>
+
+        <h3 style="color: green;">3. Fasting Blood Sugar > 120 mg/dl</h3>
+        <p>Fasting blood sugar is the blood glucose level after an overnight fast. Elevated levels can indicate diabetes, which is a risk factor for heart disease.</p>
+
+        <h3 style="color: green;">4. Exercise-Induced Angina</h3>
+        <p>Angina is chest pain or discomfort caused by reduced blood flow to the heart. Exercise-induced angina occurs during physical exertion and can indicate heart disease.</p>
+
+        <h3 style="color: green;">5. ST Depression Induced by Exercise Relative to Rest (Oldpeak)</h3>
+        <p>Oldpeak refers to the difference in the ST segment of an ECG before and after exercise. ST depression during exercise is a sign of reduced oxygen supply to the heart muscle, which may indicate heart disease.</p>
+
+        <h3 style="color: green;">6. The Slope of the Peak Exercise ST Segment (Slope): Upsloping, Flat, Downsloping</h3>
+        <p>This measures the shape of the ST segment during exercise on an ECG. A downsloping ST segment is associated with a higher risk of heart disease, while an upsloping segment is considered normal.</p>
+
+        <h3 style="color: green;">7. Number of Major Vessels (0-4) Colored by Fluoroscopy</h3>
+        <p>This test measures the number of coronary arteries that are blocked or narrowed, with fluoroscopy used to highlight them. The higher the number of affected vessels, the greater the risk of heart disease.</p>
+
+        <h3 style="color: green;">8. Chest Pain Type</h3>
+        <p>Chest pain is categorized into:
+            <ul>
+                <li><strong>Typical Angina:</strong> Pain caused by restricted blood flow to the heart, often triggered by physical exertion.</li>
+                <li><strong>Atypical Angina:</strong> Pain not caused by physical exertion but still related to heart issues.</li>
+                <li><strong>Non-Anginal Pain:</strong> Chest pain not related to the heart.</li>
+                <li><strong>Asymptomatic:</strong> No pain present despite heart disease.</li>
+            </ul>
+        </p>
+
+        <h3 style="color: green;">9. Resting Electrocardiographic (ECG) Results</h3>
+        <p>The resting ECG measures the electrical activity of the heart. Abnormal results can indicate heart problems. The common types of abnormal results include:
+            <ul>
+                <li><strong>Normal:</strong> No signs of heart disease.</li>
+                <li><strong>ST-T Wave Abnormality:</strong> Indicates possible issues with heart muscle oxygenation.</li>
+                <li><strong>Left Ventricular Hypertrophy:</strong> Enlargement of the heart's left ventricle, which may signal heart disease.</li>
+            </ul>
+        </p>
+
+        <h3 style="color: green;">10. Thalassemia</h3>
+        <p>Thalassemia refers to abnormalities in the hemoglobin of red blood cells. It is categorized into:
+            <ul>
+                <li><strong>Normal:</strong> No abnormalities.</li>
+                <li><strong>Fixed Defect:</strong> A permanent abnormality, often linked to heart disease.</li>
+                <li><strong>Reversible Defect:</strong> A temporary abnormality, which can sometimes be reversed with treatment.</li>
+            </ul>
+        </p>
+    </div>
+</div>
+
+<script>
+    const questions = document.querySelectorAll('.question');
+
+    questions.forEach((question) => {
+        question.addEventListener('click', () => {
+            const answer = question.nextElementSibling;
+            const isVisible = answer.style.display === 'block';
+            
+            // Close all answers
+            document.querySelectorAll('.answer').forEach((ans) => {
+                ans.style.display = 'none';
+            });
+
+            // Open clicked answer if it was not visible
+            if (!isVisible) {
+                answer.style.display = 'block';
+            }
+        });
+    });
+</script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+
+</body>
+</html>

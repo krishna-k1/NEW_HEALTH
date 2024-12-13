@@ -1,0 +1,629 @@
+<!-- Correct navbar a little and center the calender-->
+<!DOCTYPE html> 
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Appointment Schedule</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/flatpickr/4.6.13/flatpickr.min.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Nerko+One&family=Rubik:wght@400;500&display=swap" rel="stylesheet">
+    <style>
+        body {
+            background: linear-gradient(to bottom right, #d4f7d7, #a3e8f9);
+            font-family: 'Rubik', sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+
+
+        .navbar-collapse {
+    transition: background 0.3s ease; /* Smooth transition for the entire background property */
+}
+
+.navbar-collapse.show {
+    background: radial-gradient(circle, rgba(208, 247, 212, 0.5), rgba(168, 230, 224, 0.7));
+}
+
+
+.navbar {
+  --bs-navbar-padding-y: 0px;
+  width: 100%;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 1000;
+
+
+}
+
+.profile-summary {
+    border-top: 1px solid #ccc;
+    padding-top: 10px;
+}
+
+.profile-summary h3 {
+    margin-bottom: 10px;
+}
+
+.profile-summary p {
+    font-size: 16px;
+    margin: 5px 0;
+}
+
+.profile-summary strong {
+    font-weight: bold;
+}
+
+
+/* Adjust navbar height on smaller screens */
+@media (max-width: 768px) {
+ .navbar{
+  height: 50px;}
+
+  .navbar-brand {
+    font-size: 1rem; /* Optionally reduce logo font size */
+  }
+
+  .nav-link {
+    padding: 5px 10px; /* Reduce padding of nav links */
+  }
+
+  .navbar-toggler {
+    padding: 3px 6px; /* Reduce padding of toggle button */
+  }
+}
+
+
+.nav-item {
+  padding-left: 20px;
+}
+
+/* Underline effect on hover */
+.nav-link {
+  position: relative;
+  color: #333; /* Optional: Adjust text color */
+  text-decoration: none; /* Remove default underline */
+}
+
+.nav-link::after {
+  content: "";
+  position: absolute;
+  width: 0;
+  height: 2px;
+  bottom: -2px;
+  left: 0;
+  background-color: #3f8b42; /* Change this color as desired */
+  transition: width 0.3s ease-in-out;
+}
+
+.nav-link:hover::after {
+  width: 100%; /* Expands underline on hover */
+}
+/* Adjust navbar height on smaller screens */
+@media (max-width: 768px) {
+ .navbar{
+  height: 50px;}
+
+  .navbar-brand {
+    font-size: 1rem; /* Optionally reduce logo font size */
+  }
+
+  .nav-link {
+    padding: 5px 10px; /* Reduce padding of nav links */
+  }
+
+  .navbar-toggler {
+    padding: 3px 6px; /* Reduce padding of toggle button */
+  }
+}
+.navbar .btn {
+    padding: 10px 15px;
+    font-size: 1rem;
+    width: auto;
+}
+
+
+
+.container-fluid {
+background: linear-gradient(to right, #d3f6f9, #a1e4a6);
+background-size: cover;
+height: 15vh;
+}
+
+.container-wrapper, .about-container, .footer-container {
+width: 80%; /* Consistent width for all containers */
+  max-width: 1200px; /* Optional: limit width for larger screens */
+margin: 20px auto; /* Center containers and add spacing */
+padding: 20px;
+  border-radius: 8px;
+box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+        .container {
+            max-width: 900px;
+            margin: 50px auto;
+            padding: 20px;
+            background: #fff;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            text-align: center; /* Ensures content alignment within the container */
+padding-top: 60px;
+        }
+
+        h1, h2 {
+            text-align: center;
+            color: #00695c;
+        }
+
+        label {
+            font-weight: 500;
+            margin-top: 15px;
+            
+        }
+
+        .calendar-container, .form-group {
+            display: flex;
+            justify-content: center; /* Center horizontally */
+            align-items: center;    /* Center vertically if needed */
+            margin: 0 auto;      /* Center with some margin */
+            width: 100%;      /* Ensures it takes up the available space */
+        }
+
+        .time-blocks {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+        }
+
+        .time-block {
+            padding: 15px;
+            background-color: #f9f9f9;
+            border: 2px solid #00695c;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 1em;
+            text-align: center;
+            transition: all 0.3s;
+        }
+
+        .time-block:hover, .time-block.selected {
+            background-color: #008c8c;
+            color: #fff;
+        }
+
+        .dropdown, .dropdown-select {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        .btn {
+            display: block;
+            width: 100%;
+            padding: 10px;
+            background-color: #00695c;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            margin-top: 20px;
+            font-size: 1.2em;
+            cursor: pointer;
+        }
+
+        .btn:hover {
+            background-color: #004d40;
+        }
+
+        #confirmation {
+            margin-top: 20px;
+            padding: 15px;
+            background: #e0f7fa;
+            border: 1px solid #00acc1;
+            border-radius: 5px;
+            text-align: center;
+        }
+
+        .bed-selection-container {
+            text-align: center;
+            margin-top: 30px;
+        }
+
+        .bed-icons {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-top: 20px;
+        }
+
+        .bed-icon {
+            width: 80px;
+            height: 80px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            align-items: center;
+            border: 2px solid #ccc;
+            border-radius: 10px;
+            background-color: #f9f9f9;
+            background-image: url('/assets/icons/bed.jpg'); /* Path to your bed image */
+            /* font-size: 1em; */
+            background-size: contain;
+            background-repeat: no-repeat;
+            background-position: center;
+            cursor: pointer;
+            position: relative;
+            transition: transform 0.3s, background-color 0.3s, border-color 0.3s;
+        }
+
+        .bed-icon:hover {
+            transform: scale(1.1);
+            background-color: #008c8c;
+            color: #09982a;
+            border-color: #00695c;
+        }
+
+        .bed-icon.selected {
+            background-color: #00695c;
+            color: #09982a;
+            border-color: #004d40;
+        }
+        
+h1{
+    font-family: 'Arial', sans-serif; /* Smooth, modern font */
+    font-size: 36px; /* Larger size for emphasis */
+    font-weight: 700; /* Bold to make it stand out */
+    text-align: center; /* Center-align the text */
+    color:black; /* A vibrant color for the text */
+    text-transform: uppercase; /* Uppercase for added boldness */
+    letter-spacing: 2px; /* Slight spacing between letters */
+    margin-top: 50px; /* Add space from the top */
+    margin-bottom: 20px; /* Space between heading and other elements */
+    text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2); /* Soft shadow for depth */
+}
+
+@media (max-width: 768px) {
+    h1{
+        font-size: 28px; /* Slightly smaller on mobile screens */
+        margin-top: 30px; /* Adjust margin on small screens */
+    }
+}
+     
+.appointment-center {
+    display: flex;
+    flex-direction: column; /* Stack items vertically */
+    align-items: center; /* Horizontally center items */
+    justify-content: center; /* Vertically center items */
+  /* Optional: Center within full viewport height */
+    text-align: center; /* Center-align the text */
+}
+
+
+
+
+    </style>
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg bg-body-tertiary">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="javascript:void(0)" onclick="scrollToTop()">
+                <img src="/assets/images/logo copy.png" alt="logo" width="30px" height="30px"> Health-Ease
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation" id="navbar-toggle-btn">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="/start">Home</a>
+                    </li>
+                 
+                    <!-- <li class="nav-item">
+                        <a class="nav-link active" href="/views/heartDiagnose">DiseaseDiagnosis</a>
+                    </li> -->
+    
+                        <li class="nav-item">
+                      <a class="nav-link active" href="/views/appointment">Schedule appointment</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link active" href="/views/heartDiagnose">Heart Diagnose</a>
+                </li>
+                   
+                
+                </ul>
+                <button class="btn btn-outline-success" type="submit">
+                    <a class="nav-link" href="/logout">LogOut</a>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container">
+        <h1>Schedule Your Appointment</h1>
+        <!-- <form action="/appointment_schedule" method="POST"> -->
+            <form id="appointment-form" >
+            <!-- Calendar -->
+            <label for="patient">Patient Name:</label>
+            <input type="text" id="patient" name="patient" class="form-control" placeholder="Enter patient name">
+
+            <label for="purpose">Purpose of Appointment:</label>
+            <input type="text" id="purpose" name="purpose" class="form-control" placeholder="Enter purpose:">
+
+            <div class="appointment-center">
+                <label for="appoint_date">Select Appointment Date:</label>
+                <div class="calendar-container" id="calendar"></div>
+                <input type="hidden" id="appoint_date" name="appoint_date">
+            </div>
+            
+
+            <!-- Time -->
+            <label>Select Appointment Time:</label>
+            <div class="time-blocks">
+                <div class="time-block" data-time="8:30 A.M.">8:30 A.M.</div>
+                <div class="time-block" data-time="10:30 A.M.">10:30 A.M.</div>
+                <div class="time-block" data-time="4:00 P.M.">4:00 P.M.</div>
+                <div class="time-block" data-time="7:00 P.M.">7:00 P.M.</div>
+            </div>
+            <input type="hidden" id="appoint_time" name="appoint_time">
+
+            <!-- Doctor -->
+            <label for="doctor">Select Doctor:</label>
+            <select id="doctor" name="doctor" class="form-control">
+                <option value="Dr. John Smith">Dr. John Smith</option>
+                <option value="Dr. Emily Watson">Dr. William Watson</option>
+                <option value="Dr. Robert Lee">Dr. Robert Lee</option>
+            </select>
+
+            <!-- Room -->
+            <label for="room">Select Room Number:</label>
+            <select id="room" name="room" class="dropdown">
+                <option value="101">Room 101</option>
+                <option value="102">Room 102</option>
+                <option value="103">Room 103</option>
+            </select>
+
+            <!-- Bed -->
+            <!-- <label for="bed">Select Bed Number:</label>
+            <select id="bed" name="bed" class="dropdown">
+                <option value="1">Bed 1</option>
+                <option value="2">Bed 2</option>
+                <option value="3">Bed 3</option>
+            </select> -->
+
+            <div class="bed-selection-container">
+                <h2>Select Your Bed</h2>
+                <div class="bed-icons">
+                    <div class="bed-icon" data-bed="1">Bed 1</div>
+                    <div class="bed-icon" data-bed="2">Bed 2</div>
+                    <div class="bed-icon" data-bed="3">Bed 3</div>
+                    <div class="bed-icon" data-bed="4">Bed 4</div>
+                </div>
+                <input type="hidden" id="selected-bed" name="bed" value="">
+            </div>
+            
+
+            <button type="submit" id="generateappointment" class="btn">Schedule Appointment</button>
+        </form>
+        <div id="confirmation" hidden>
+            <h3>Appointment Scheduled Successfully!</h3>
+            <p>
+                <strong>Patient:</strong> <span id="confirm-patient"></span><br>
+                <strong>Purpose:</strong> <span id="confirm-purpose"></span><br>
+                <strong>Doctor:</strong> <span id="confirm-doctor"></span><br>
+                <strong>Date:</strong> <span id="confirm-date"></span><br>
+                <strong>Time:</strong> <span id="confirm-time"></span><br>
+                <strong>Room:</strong> <span id="confirm-room"></span><br>
+                <strong>Bed:</strong> <span id="confirm-bed"></span>
+            </p>
+        </div>
+        
+    </div>
+
+    <div class="container mt-4">
+        <h2>Appointment Statistics</h2>
+        <canvas id="appointmentChart"></canvas>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/flatpickr/4.6.13/flatpickr.min.js"></script>
+    <script>
+        flatpickr("#calendar", {
+            inline: true,
+            dateFormat: "Y-m-d",
+            minDate: "today",
+            onChange: (selectedDates, dateStr) => {
+                document.getElementById('appoint_date').value = dateStr;
+            }
+        });
+
+        document.querySelectorAll('.time-block').forEach(block => {
+            block.addEventListener('click', function () {
+                document.querySelectorAll('.time-block').forEach(b => b.classList.remove('selected'));
+                this.classList.add('selected');
+                document.getElementById('appoint_time').value = this.dataset.time;
+            });
+        });
+
+        // Select all bed icons and the hidden input
+        const bedIcons = document.querySelectorAll('.bed-icon');
+        const selectedBedInput = document.getElementById('selected-bed');
+
+        // Add click event listeners to each bed icon
+        bedIcons.forEach((bedIcon) => {
+            bedIcon.addEventListener('click', () => {
+                // Remove 'selected' class from all bed icons
+                bedIcons.forEach((icon) => icon.classList.remove('selected'));
+
+                // Add 'selected' class to the clicked bed icon
+                bedIcon.classList.add('selected');
+
+                // Update the hidden input value
+                selectedBedInput.value = bedIcon.getAttribute('data-bed');
+            });
+        });
+
+
+
+        // document.querySelector('form').addEventListener('submit', function (event) {
+            
+        // Handle form submission
+        document.getElementById('appointment-form').addEventListener('submit', function (event) {
+            event.preventDefault();
+            const patient = document.getElementById('patient').value;
+            const purpose = document.getElementById('purpose').value;
+            const date = document.getElementById('appoint_date').value;
+            const time = document.getElementById('appoint_time').value;
+            const doctor = document.getElementById('doctor').value;
+            const room = document.getElementById('room').value;
+            // const bed = document.getElementById('bed').value;
+            const bed = selectedBedInput.value;
+
+
+            if (patient && date && time && doctor && room && bed) {
+                const confirmation = document.getElementById('confirmation');
+                document.getElementById('confirm-patient').textContent = patient;
+                document.getElementById('confirm-purpose').textContent = purpose;
+                document.getElementById('confirm-date').textContent = date;
+                document.getElementById('confirm-time').textContent = time;
+                document.getElementById('confirm-doctor').textContent = doctor;
+                document.getElementById('confirm-room').textContent = room;
+                document.getElementById('confirm-bed').textContent = bed;
+                confirmation.hidden = false;
+                // Here you can send the data to your server if needed
+                // Example: send the data using fetch or AJAX
+                // Send data to the server (optional)
+                // Example:
+                // fetch('/appointment_schedule', {
+                //     method: 'POST',
+                //     headers: { 'Content-Type': 'application/json' },
+                //     body: JSON.stringify({ patient, date, time, doctor, room, bed })
+                // })
+                // .then(response => response.json())
+                // .then(data => console.log(data));
+                
+            } else {
+                // event.preventDefault();
+                alert("Please fill in all fields before submitting.");
+            }
+
+            // Send data to the backend
+            // const response = await fetch('/appointment_schedule', {
+            //             method: 'POST',
+            //             headers: { 'Content-Type': 'application/json' },
+            //             body: JSON.stringify({ date, time, room, bed, doctor, purpose }),
+            //         });
+
+            //         if (response.ok) {
+            //             alert('Appointment information saved successfully!');
+            //         } else {
+            //             alert('Failed to save Appointment information.');
+            //         }
+        });
+
+        document.getElementById('generateappointment').addEventListener('click', async () => {
+            const patient = document.getElementById('patient').value;
+            const purpose = document.getElementById('purpose').value;
+            const date = document.getElementById('appoint_date').value;
+            const time = document.getElementById('appoint_time').value;
+            const doctor = document.getElementById('doctor').value;
+            const room = document.getElementById('room').value;
+            // const bed = document.getElementById('bed').value;
+            const bed = selectedBedInput.value;
+
+            const response = await fetch('/appointment_schedule', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ date, time, room, bed, doctor, purpose }),
+            });
+
+            if (response.ok) {
+                alert('Appointment information saved successfully!');
+            } else {
+                alert('Failed to save appointment information.');
+            }
+        });
+
+
+         
+
+
+        const ctx = document.getElementById('appointmentChart').getContext('2d');
+
+// Example data for the chart
+const chartData = {
+    labels: ['8:30 A.M.', '10:30 A.M.', '4:00 P.M.', '7:00 P.M.'], // Time slots
+    datasets: [
+        {
+            label: 'Number of Appointments',
+            data: [0, 0, 0, 0], // Replace with actual data
+            backgroundColor: 'rgba(0, 128, 128, 0.6)', // Teal
+            borderColor: 'rgba(0, 128, 128, 1)', // Darker teal
+            borderWidth: 1,
+        },
+        {
+            label: 'Number of Beds Used',
+            data: [0, 0, 0, 0], // Replace with actual data
+            backgroundColor: 'rgba(255, 193, 7, 0.6)', // Yellow
+            borderColor: 'rgba(255, 193, 7, 1)', // Darker yellow
+            borderWidth: 1,
+        },
+    ],
+};
+
+// Create the chart
+const appointmentChart = new Chart(ctx, {
+    type: 'bar', // You can change this to 'line', 'pie', etc.
+    data: chartData,
+    options: {
+        responsive: true,
+        plugins: {
+            legend: {
+                position: 'top', // Position of the legend
+            },
+            title: {
+                display: true,
+                text: 'Appointments and Bed Usage Per Time Slot',
+            },
+        },
+        scales: {
+            x: {
+                title: {
+                    display: true,
+                    text: 'Time Slots',
+                },
+            },
+            y: {
+                title: {
+                    display: true,
+                    text: 'Count',
+                },
+                beginAtZero: true,
+            },
+        },
+    },
+});
+
+
+document.getElementById('appointment-form').addEventListener('submit', function (event) {
+    event.preventDefault();
+
+    // Example: Add new data dynamically (replace these with actual values)
+    const timeSlot = document.getElementById('appoint_time').value;
+
+    // Update the data arrays based on the selected time slot
+    const timeIndex = chartData.labels.indexOf(timeSlot);
+    if (timeIndex !== -1) {
+        chartData.datasets[0].data[timeIndex] += 1; // Increment appointments count
+        chartData.datasets[1].data[timeIndex] += 1; // Increment beds used count
+    }
+
+    // Refresh the chart
+    appointmentChart.update();
+});
+
+    </script>
+</body>
+</html>

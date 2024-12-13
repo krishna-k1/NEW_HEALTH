@@ -1,0 +1,25 @@
+Things remaining :
+Appointment + Bed and room scheduling for staff(DONE)
+
+Billing for staff (DONE)
+
+Three different people login
+
+showing all records to staff
+
+showing prediction in some fancy way (DONE)
+
+graph for different factors number of bed, appointment, for each time, made(DONE)
+
+make gif log and buttons (DONE)
+
+make more structured and filled (DONE)
+
+change the name of symptoms for user understandbility (DONE)
+
+make a home page more longer to display staff info and about heart and hospital (DONE)
+
+make a help page more to describe more(DONE)
+
+Backend for saving data(DONE)
+

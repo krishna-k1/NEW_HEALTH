@@ -1,0 +1,611 @@
+<!-- make the final message more longer or in different lines , images of ! mark when detected and tick image when not detected -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Heart Disease Prediction</title>
+  
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+  <link rel="stylesheet" href="styles/bootstrap/dist/css/bootstrap.min.css" />
+ 
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Nerko+One&family=Rubik:ital,wght@0,300..900;1,300..900&display=swap" rel="stylesheet">
+<style>
+  body{
+    background: radial-gradient(circle, #d0f7d4, #a8e6e0);
+  }
+.navbar-collapse {
+    transition: background 0.3s ease; /* Smooth transition for the entire background property */
+}
+
+.navbar-collapse.show {
+    background: radial-gradient(circle, rgba(208, 247, 212, 0.5), rgba(168, 230, 224, 0.7));
+}
+
+
+.navbar {
+  --bs-navbar-padding-y: 0px;
+  width: 100%;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 1000;
+
+
+}
+
+.profile-summary {
+    border-top: 1px solid #ccc;
+    padding-top: 10px;
+}
+
+.profile-summary h3 {
+    margin-bottom: 10px;
+}
+
+.profile-summary p {
+    font-size: 16px;
+    margin: 5px 0;
+}
+
+.profile-summary strong {
+    font-weight: bold;
+}
+
+h1 {
+    font-family: 'Arial', sans-serif; /* Smooth, modern font */
+    font-size: 36px; /* Larger size for emphasis */
+    font-weight: 700; /* Bold to make it stand out */
+    text-align: center; /* Center-align the text */
+    color: #4A90E2; /* A vibrant color for the text */
+    text-transform: uppercase; /* Uppercase for added boldness */
+    letter-spacing: 2px; /* Slight spacing between letters */
+    margin-top: 50px; /* Add space from the top */
+    margin-bottom: 20px; /* Space between heading and other elements */
+    text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2); /* Soft shadow for depth */
+}
+
+@media (max-width: 768px) {
+    h1 {
+        font-size: 28px; /* Slightly smaller on mobile screens */
+        margin-top: 30px; /* Adjust margin on small screens */
+    }
+}
+
+
+/* Adjust navbar height on smaller screens */
+@media (max-width: 768px) {
+ .navbar{
+  height: 50px;}
+
+  .navbar-brand {
+    font-size: 1rem; /* Optionally reduce logo font size */
+  }
+
+  .nav-link {
+    padding: 5px 10px; /* Reduce padding of nav links */
+  }
+
+  .navbar-toggler {
+    padding: 3px 6px; /* Reduce padding of toggle button */
+  }
+}
+
+
+.nav-item {
+  padding-left: 20px;
+}
+
+/* Underline effect on hover */
+.nav-link {
+  position: relative;
+  color: #333; /* Optional: Adjust text color */
+  text-decoration: none; /* Remove default underline */
+}
+
+.nav-link::after {
+  content: "";
+  position: absolute;
+  width: 0;
+  height: 2px;
+  bottom: -2px;
+  left: 0;
+  background-color: #3f8b42; /* Change this color as desired */
+  transition: width 0.3s ease-in-out;
+}
+
+.nav-link:hover::after {
+  width: 100%; /* Expands underline on hover */
+}
+/* Adjust navbar height on smaller screens */
+@media (max-width: 768px) {
+ .navbar{
+  height: 50px;}
+
+  .navbar-brand {
+    font-size: 1rem; /* Optionally reduce logo font size */
+  }
+
+  .nav-link {
+    padding: 5px 10px; /* Reduce padding of nav links */
+  }
+
+  .navbar-toggler {
+    padding: 3px 6px; /* Reduce padding of toggle button */
+  }
+}
+.navbar .btn {
+    padding: 10px 15px;
+    font-size: 1rem;
+    width: auto;
+}
+
+
+
+.container-fluid {
+background: linear-gradient(to right, #d3f6f9, #a1e4a6);
+background-size: cover;
+height: 15vh;
+}
+
+.container-wrapper, .about-container, .footer-container {
+width: 80%; /* Consistent width for all containers */
+  max-width: 1200px; /* Optional: limit width for larger screens */
+margin: 20px auto; /* Center containers and add spacing */
+padding: 20px;
+  border-radius: 8px;
+box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* General Styles for Body */
+/* Remove default margin from body */
+body {
+    margin: 0;
+    font-family: 'Arial', sans-serif;
+    background-color: #f8f9fa;
+}
+
+/* Navbar adjustment */
+.navbar {
+    margin-bottom: 0; /* Ensure no gap after navbar */
+    position: fixed; /* Keep navbar fixed at the top */
+    width: 100%;
+    z-index: 1000;
+}
+
+/* Main content wrapper */
+.container {
+    margin: 70px auto 20px; /* Add margin to account for the fixed navbar */
+    max-width: 800px;
+    background-color: #8ee2d0;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.4);
+    padding: 20px;
+  
+    /* Add z-index to make sure it stays above other elements */
+    position: relative; /* Required for z-index to work */
+    z-index: 10; /* Higher value places it on top of elements with lower z-index */
+}
+
+/* Title Styling */
+h1 {
+    text-align: center;
+    font-size: 28px;
+    color: #343a40;
+    margin-top: 50px;
+}
+
+/* Form Styling */
+form {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+/* Labels */
+label {
+    font-weight: bold;
+    color: #495057;
+}
+
+/* Input Fields */
+input[type="number"],
+select,
+textarea {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ced4da;
+    border-radius: 5px;
+    font-size: 16px;
+    color: #495057;
+    background-color: #f8f9fa;
+}
+
+/* Input Focus */
+input[type="number"]:focus,
+select:focus,
+textarea:focus {
+    outline: none;
+    border-color: #80bdff;
+    box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+}
+
+/* Style for Radio Button Container */
+#predictionForm .radio-group {
+    display: inline-flex; /* Align radio buttons in a row */
+    gap: 15px; /* Adds space between radio buttons */
+    align-items: center; /* Aligns the items vertically centered */
+}
+
+/* Optional: Remove margin for individual radio buttons */
+#predictionForm input[type="radio"] {
+    margin: 0; /* Removes default margin */
+}
+
+
+
+
+label[for^="exang"], 
+label[for^="ca"] {
+    margin-right: 20px;
+}
+
+/* Submit Button */
+button[type="submit"] {
+    width: 100%;
+    padding: 10px;
+    background-color: #198754;
+    color: #ffffff;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+button[type="submit"]:hover {
+    background-color: #157347;
+}
+
+/* Features Textarea */
+textarea#features {
+    resize: none;
+    font-size: 14px;
+    background-color: #e9ecef;
+    color: #495057;
+    border: 1px solid #ced4da;
+    padding: 10px;
+}
+
+/* Result Paragraph */
+p#result {
+    margin-top: 20px;
+    font-size: 18px;
+    font-weight: bold;
+    color: #198754;
+    text-align: center;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .container {
+        padding: 15px;
+    }
+
+    h1 {
+        font-size: 24px;
+    }
+
+    button[type="submit"] {
+        font-size: 14px;
+    }
+}
+
+
+#prdictionForm{
+  background: radial-gradient(circle, #d0f7d4, #a8e6e0);
+}
+
+
+
+</style>
+</head>
+
+<body>
+  <nav class="navbar navbar-expand-lg bg-body-tertiary">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="javascript:void(0)" onclick="scrollToTop()">
+            <img src="/assets/images/logo copy.png" alt="logo" width="30px" height="30px"> Health-Ease
+        </a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation" id="navbar-toggle-btn">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                <li class="nav-item">
+                    <a class="nav-link active" aria-current="page" href="/start">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link active" href="/views/profile" id="profile-link">Profile</a>
+                </li>
+                <!-- <li class="nav-item">
+                    <a class="nav-link active" href="/views/heartDiagnose">DiseaseDiagnosis</a>
+                </li> -->
+
+                    <li class="nav-item">
+                  <a class="nav-link active" href="/views/appointment">Schedule appointment</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link active" href="/views/heartDiagnose">Heart Diagnose</a>
+            </li>
+
+            
+            </ul>
+            <button class="btn btn-outline-success" type="submit">
+                <a class="nav-link" href="/logout">LogOut</a>
+            </button>
+        </div>
+    </div>
+</nav>
+<div class="container">
+    <h1>Heart Disease Prediction</h1>
+
+    <form id="predictionForm">
+      <!-- Age -->
+      <label for="age">Patient Age:</label>
+      <input type="number" id="age" name="age" required>
+  
+      <!-- Sex -->
+      <label for="sex">Gender of Patient:</label>
+      <select id="sex" name="sex" required>
+        <option value="0">Male</option>
+        <option value="1">Female</option>
+      </select>
+  
+      <!-- Trestbps -->
+      <label for="trestbps">Resting Blood Pressure(in mm Hg):</label>
+      <input type="number" step="any" id="trestbps" name="trestbps" required>
+  
+      <!-- Chol -->
+      <label for="chol">Serum Cholesterol:</label>
+      <input type="number" step="any" id="chol" name="chol" required>
+  
+      <!-- FBS -->
+      <label for="fbs">Fasting Blood Sugar > 120 mg/dl:</label>
+      <select id="fbs" name="fbs" required>
+        <option value="0">False</option>
+        <option value="1">True</option>
+      </select>
+  
+      <!-- Thalach -->
+      <label for="thalach">Maximum Heart Rate Achieved:</label>
+      <input type="number" step="any" id="thalach" name="thalach" required>
+  
+      <!-- Exang -->
+   <!-- Exang -->
+<label for="exang">Exercise-Induced Angina:</label>
+<div class="radio-group">
+    <input type="radio" id="exang_no" name="exang" value="0" checked>
+    <label for="exang_no">No</label>
+    
+    <input type="radio" id="exang_yes" name="exang" value="1">
+    <label for="exang_yes">Yes</label>
+</div>
+
+  
+      <!-- Oldpeak -->
+      <label for="oldpeak">ST depression induced by exercise relative to rest (Oldpeak):</label>
+      <input type="number" step="any" id="oldpeak" name="oldpeak" required>
+  
+      <!-- Slope -->
+      <label for="slope">The slope of the peak exercise ST segment (Slope):</label>
+      <select id="slope" name="slope" required>
+        <option value="0">Upsloping</option>
+        <option value="1">Flat</option>
+        <option value="2">Downsloping</option>
+      </select>
+  
+      <!-- CA -->
+    <!-- CA -->
+<label for="ca">Number of Major Vessels (0-4) colored by flouroscopy:</label>
+<div class="radio-group">
+    <input type="radio" id="ca_0" name="ca" value="0" checked>
+    <label for="ca_0">0</label>
+    
+    <input type="radio" id="ca_1" name="ca" value="1">
+    <label for="ca_1">1</label>
+    
+    <input type="radio" id="ca_2" name="ca" value="2">
+    <label for="ca_2">2</label>
+    
+    <input type="radio" id="ca_3" name="ca" value="3">
+    <label for="ca_3">3</label>
+    
+    <input type="radio" id="ca_4" name="ca" value="4">
+    <label for="ca_4">4</label>
+</div>
+
+
+  
+      <!-- CP -->
+      <label for="cp">Chest Pain Type:</label>
+      <select id="cp" name="cp" required>
+        <option value="1,0,0">Typical Angina</option>
+        <option value="1,0,0">Atypical Angina</option>
+        <option value="0,1,0">Non-Anginal Pain</option>
+        <option value="0,0,1">Asymptomatic</option>
+      </select>
+  
+      <!-- Restecg -->
+      <label for="restecg">Resting Electrocardiographic(ECG) results:</label>
+      <select id="restecg" name="restecg" required>
+        <option value="1,0">Normal</option>
+        <option value="1,0">ST-T Wave Abnormality</option>
+        <option value="0,1">Showing probable or definite Left Ventricular Hypertrophy</option>
+      </select>
+  
+      <!-- Thal -->
+      <label for="thal">Thalassemia:</label>
+      <select id="thal" name="thal" required>
+        <option value="1,0,0">Normal</option>
+        <option value="0,1,0">Fixed Defect</option>
+        <option value="0,0,1">Reversible Defect</option>
+      </select>
+  
+      <!-- Output Text Area -->
+      <label for="features">Selected Features:</label><br>
+      <textarea id="features" name="features" rows="4" readonly></textarea>
+  
+      <!-- Submit Button -->
+      <button type="submit" id="generatePrediction">Predict</button>
+    </form>
+  
+    <p id="result"></p>
+</div>
+  <script>
+    const lambdas = {
+      age: 1.188462507146636,
+      trestbps: -0.5669617411432346,
+      chol: -0.12552640563584697,
+      thalach: 2.445456150508822,
+      oldpeak: 0.1775977493840191
+    };
+
+    function boxCoxTransform(value, lambda) {
+      if (value === "" || isNaN(value)) return "";
+      value = parseFloat(value);
+      if (lambda === 0) {
+        return Math.log(value).toFixed(4); // Log transformation if lambda is 0
+      }
+      return ((Math.pow(value, lambda) - 1) / lambda).toFixed(4);
+    }
+
+    const form = document.getElementById("predictionForm");
+    const featuresField = document.getElementById("features");
+
+    // Function to update the features textarea
+    // function updateFeatures() {
+    //   const age = document.getElementById("age").value || "";
+    //   const sex = document.getElementById("sex").value || "";
+    //   const trestbps = document.getElementById("trestbps").value || "";
+    //   const chol = document.getElementById("chol").value || "";
+    //   const fbs = document.getElementById("fbs").value || "";
+    //   const thalach = document.getElementById("thalach").value || "";
+    //   const exang = document.querySelector("input[name='exang']:checked").value || "";
+    //   const oldpeak = document.getElementById("oldpeak").value || "";
+    //   const slope = document.getElementById("slope").value || "";
+    //   const ca = document.querySelector("input[name='ca']:checked").value || "";
+    //   const cp = document.getElementById("cp").value || "";
+    //   const restecg = document.getElementById("restecg").value || "";
+    //   const thal = document.getElementById("thal").value || "";
+
+    //   // Update features field
+    //   featuresField.value = [age, sex, trestbps, chol, fbs, thalach, exang, oldpeak, slope, ca, cp, restecg, thal]
+    //     .filter(value => value !== "")
+    //     .join(",");
+    // }
+    function updateFeatures() {
+      const age = boxCoxTransform(document.getElementById("age").value, lambdas.age);
+      const trestbps = boxCoxTransform(document.getElementById("trestbps").value, lambdas.trestbps);
+      const chol = boxCoxTransform(document.getElementById("chol").value, lambdas.chol);
+      const thalach = boxCoxTransform(document.getElementById("thalach").value, lambdas.thalach);
+      const oldpeak = boxCoxTransform(document.getElementById("oldpeak").value, lambdas.oldpeak);
+      const sex = document.getElementById("sex").value;
+      const fbs = document.getElementById("fbs").value;
+      const exang = document.querySelector("input[name='exang']:checked").value;
+      const slope = document.getElementById("slope").value;
+      const ca = document.querySelector("input[name='ca']:checked").value;
+      const cp = document.getElementById("cp").value;
+      const restecg = document.getElementById("restecg").value;
+      const thal = document.getElementById("thal").value;
+
+      document.getElementById("features").value = [
+        age, sex, trestbps, chol, fbs, thalach, exang, oldpeak, slope, ca, cp, restecg, thal
+      ].filter(value => value !== "").join(",");
+    }
+
+    // Add event listeners to all inputs
+    form.querySelectorAll("input, select").forEach(input => {
+      input.addEventListener("input", updateFeatures);
+      input.addEventListener("change", updateFeatures);
+    });
+
+
+
+    // const form = document.getElementById("predictionForm");
+    const result = document.getElementById("result");
+
+    form.addEventListener("submit", async (e) => {
+      e.preventDefault();
+      const features1 = featuresField.value.split(",").map(Number);//
+
+      const features = document.getElementById("features").value.trim().split(",").map(Number);
+        console.log("features from frontend"+features );
+
+      try {
+        const response = await fetch("https://nodejs-production-da22.up.railway.app/predict", { // "https://your-railway-url.onrender.com/predict"
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ features })
+        });
+
+        const data = await response.json();
+        // console.log("Data in frontend: "+ data);
+        // console.log("data.prediction: "+ data.prediction);
+        result.textContent = `Data in frontend: ${data}`;
+        
+        if (response.ok) {
+            // Handle the prediction based on number (0 or 1)
+            // const predictionMessage = data.prediction === 1? "Heart Disease Detected" : "No Heart Disease";
+            // alert(`Prediction got: ${data.prediction === "1" ? "Heart Disease Detected" : "No Heart Disease"}`);
+            if (data.prediction === 1) {
+            const predictionMessage = "Heart Disease Detected! This is only a prediction You can schedule an appointment for the prescription of the doctor";
+            result.textContent = `Prediction:  ${data.prediction}${predictionMessage}`;
+            } else {
+            const predictionMessage = "No Heart Disease! This is a prediction you can schedule an appointment to get precription from the doctor";
+            result.textContent = `Prediction:${data.prediction} ${predictionMessage}`;
+            }
+
+        //   alert(`Prediction done: ${predictionMessage}`);
+          result.textContent = `Prediction: ${data.prediction}`;
+          if(data.prediction === 1){
+            result.innerHTML = "<img src='/assets/icons/heart-pulse-fill.svg'><br>Heart Disease Detected! <br> This is only a prediction You can schedule an appointment for the prescription of the doctor. <br> Prediction Model accuracy: 81%";
+          }else if (data.prediction === 0){
+            result.innerHTML = "<img src='/assets/icons/chat-square-heart.svg'><br>No Heart Disease! <br> This is only a prediction you can schedule an appointment to get precription from the doctor.  <br> Prediction Model accuracy: 81%";
+          }else{
+            result.innerHTML = "<br>Error in message";
+          }
+          
+        } else {
+            console.log("data.error occured");
+        //   alert(`Error: ${data.error}`);
+          result.textContent = `Error: ${data.error}`;
+        }
+      } catch (err) {
+        // alert("An error occurred");
+        console.error(err);
+      }
+    });
+
+    
+    function closeNav() {
+            document.getElementById("mySidebar").classList.remove("open");
+            // document.body.classList.remove("sidebar-open");
+            // document.body.style.overflowX = "hidden"; 
+        }
+
+       
+  </script>
+   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+</body>
+</html>
+
+
+
+
+
+
+
